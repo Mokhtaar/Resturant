@@ -13,7 +13,7 @@ const HomePage = () => {
   const [menu, setMenu] = useState([
     {
       id: 1,
-      name: "Popular 1",
+      name: "Beef",
       price: 1,
       ingredients: "x,y,x",
       category: "pizza",
@@ -21,7 +21,7 @@ const HomePage = () => {
     },
     {
       id: 1,
-      name: "Popular 2",
+      name: "Coca",
       price: 1,
       ingredients: "x,y,x",
       category: "drinks",
@@ -29,7 +29,7 @@ const HomePage = () => {
     },
     {
       id: 1,
-      name: "Popular 3",
+      name: "Cake",
       price: 1,
       ingredients: "x,y,x",
       category: "desserts",
@@ -37,7 +37,7 @@ const HomePage = () => {
     },
     {
       id: 1,
-      name: "Popular 4",
+      name: "Pepperoni",
       price: 1,
       ingredients: "x,y,x",
       category: "pizza",
