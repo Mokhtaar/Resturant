@@ -1,170 +1,128 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import Item from "../Components/Item";
 import { useState } from "react";
 import Images from "../Components/Image";
-import checkout from "../Pages/checkout";
-import Cart from "../Components/Cart";
-// import CartItems from "../Components/CartItems"
-
+import Checkout from "../Pages/checkout";
+// import Cart from "../Components/Cart";
+import { ItemTypes } from "../Types";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../State/action-creators/actions";
 
 
 const HomePage = () => {
-  const [menu, setMenu] = useState([
-    {
-      id: 1,
-      name: "Beef",
-      price: 1,
-      ingredients: "x,y,x",
-      category: "pizza",
-      popular: true,
-    },
-    {
-      id: 1,
-      name: "Coca",
-      price: 1,
-      ingredients: "x,y,x",
-      category: "drinks",
-      popular: true,
-    },
-    {
-      id: 1,
-      name: "Cake",
-      price: 1,
-      ingredients: "x,y,x",
-      category: "desserts",
-      popular: true,
-    },
-    {
-      id: 1,
-      name: "Pepperoni",
-      price: 1,
-      ingredients: "x,y,x",
-      category: "pizza",
-      popular: true,
-    },
-  ]);
-  //   const [menu, setMenu] = useState( [
-  //     mostPopular: [
-  //       {
-  //         id: 1,
-  //         name: "Popular 1",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //         category: 'pizza',
-  //         popular: true
-  //       },
-  //       { id: 2, name: "Popular 2", price: 2, ingredients: "x,y,x" },
-  //       {
-  //         id: 3,
-  //         name: "Popular 3",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //       },
-  //       { id: 4, name: "Popular 4", price: 2, ingredients: "x,y,x" },
-  //     ],
-  //     Desserts: [
-  //       {
-  //         id: 5,
-  //         name: "Cake",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 6,
-  //         name: "Chocolate",
-  //         price: 2,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 7,
-  //         name: "Tiramisu",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 8,
-  //         name: "Konafa",
-  //         price: 2,
-  //         ingredients: "x,y,x",
-  //       },
-  //     ],
-  //     Pizza: [
-  //       {
-  //         id: 9,
-  //         name: "Chicken",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 10,
-  //         name: "Meet",
-  //         price: 2,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 11,
-  //         name: "Beef",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 12,
-  //         name: "Pepperoni",
-  //         price: 2,
-  //         ingredients: "x,y,x",
-  //       },
-  //     ],
-  //     Drinks: [
-  //       {
-  //         id: 13,
-  //         name: "Pepsi",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 14,
-  //         name: "Coca",
-  //         price: 2,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 15,
-  //         name: "Fanta",
-  //         price: 1,
-  //         ingredients: "x,y,x",
-  //       },
-  //       {
-  //         id: 16,
-  //         name: "Miranda",
-  //         price: 2,
-  //         ingredients: "x,y,x",
-  //       },
-  //     ],
+
+  const menu = useSelector((state: any) => state.menuReducer)
+
+  // const [menu, setMenu] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Beef",
+  //     price: 1,
+  //     ingredients: "x,y,x",
+  //     category: "pizza",
+  //     popular: true,
+  //     quantity: 0,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Coca",
+  //     price: 1,
+  //     ingredients: "x,y,x",
+  //     category: "drinks",
+  //     popular: true,
+  //     quantity: 0,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Cake",
+  //     price: 1,
+  //     ingredients: "x,y,x",
+  //     category: "desserts",
+  //     popular: false,
+  //     quantity: 0,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Pepperoni",
+  //     price: 1,
+  //     ingredients: "x,y,x",
+  //     category: "pizza",
+  //     popular: true,
+  //     quantity: 0,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Pepsi",
+  //     price: 1,
+  //     ingredients: "x,y,x",
+  //     category: "drinks",
+  //     popular: true,
+  //     quantity: 0,
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Tiramisu",
+  //     price: 1,
+  //     ingredients: "x,y,x",
+  //     category: "desserts",
+  //     popular: false,
+  //     quantity: 0,
+  //   },
   // ]);
 
-  const [currentState, setCurrentState] = useState(
-    menu.filter((item) => item.popular)
-  );
 
+
+  
+
+  // const changeQunatity = (item: ItemTypes, num: number) => {
+  //   if (num === -1 && item.quantity === 0) return;
+  //   setMenu((prevMenu) =>
+  //     prevMenu.map((product) =>
+  //       product.id === item.id
+  //         ? { ...product, quantity: product.quantity + num }
+  //         : product
+  //     )
+  //   );
+  // };
+
+  const [filteredMenu, setFilteredMenu] = useState(
+    menu.filter((product: ItemTypes) => product.popular === true)
+  );
+  const [currentMenu, setCurrentMenu] = useState("popular");
+
+  useEffect(() => {
+    if (currentMenu === "popular") {
+      setFilteredMenu(menu.filter((product: ItemTypes) => product.popular === true));
+    } else {
+      setFilteredMenu(
+        menu.filter((product: ItemTypes) => product.category?.name === currentMenu)
+      );
+    }
+  }, [menu]);
+
+  useEffect(() => {
+    if (currentMenu === "popular") {
+      setFilteredMenu(menu.filter((product: ItemTypes) => product.popular === true));
+    } else {
+      setFilteredMenu(menu.filter((product: ItemTypes) => product.category?.name === currentMenu));
+    }
+  }, [currentMenu]);
   return (
     <>
       <Images />
       <Nav
         className="justify-content-center"
-        //defaultActiveKey="link-2"
+        defaultActiveKey="link-0"
         onSelect={(selectedKey) => {
-          if (selectedKey === "link-0") {
-            setCurrentState(menu.filter((item) => item.popular));
-          } else if (selectedKey === "link-1") {
-            setCurrentState(menu.filter((item) => item.category === "pizza"));
+          if (selectedKey === "link-1") {
+            setCurrentMenu("Pizza");
           } else if (selectedKey === "link-2") {
-            setCurrentState(
-              menu.filter((item) => item.category === "desserts")
-            );
+            setCurrentMenu("Desserts");
           } else if (selectedKey === "link-3") {
-            setCurrentState(menu.filter((item) => item.category === "drinks"));
+            setCurrentMenu("Drinks");
           }
+          else setCurrentMenu("popular");
         }}
       >
         <Nav.Item>
@@ -181,11 +139,10 @@ const HomePage = () => {
         </Nav.Item>
       </Nav>
       <div className="d-flex justify-content-center">
-        {currentState.map((item) => (
-          <Item key={item.id} itemX={item} />
+        {filteredMenu.map((item: ItemTypes) => (
+          <Item key={item.id} itemX={item}/>
         ))}
       </div>
-      {/* <CartItems menuX={menu} /> */}
     </>
   );
 };
